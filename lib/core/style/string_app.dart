@@ -5,4 +5,5 @@ class StringApp {
   static const titleWomenappbar = "Women Clothing";
   static const titleappbarHome = "Categroy";
   static const titleappbardetailsScreen = "Details";
+  static const titleappbarRegisterScreen = "Register";
 }

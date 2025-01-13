@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:last_8/Features/Home/presentation/views/home_screen.dart';
+import 'package:last_8/Features/auth/presentation/views/register_screen.dart';
 import 'package:last_8/core/style/styles.dart';
 import 'package:last_8/core/utils/assets.dart';
 
@@ -32,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
         context,
         MaterialPageRoute(
           builder: (context) {
-            return HomeScreen();
+            return RegisterScreen();
           },
         ),
       );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_8/Features/auth/presentation/views/register_screen.dart';
 import 'package:last_8/Features/splash/presentation/views/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
