@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class AuthData {
   final Dio dio = Dio();
-  postData({
+  Future<void> postData({
     required name,
     required email,
     required phone,

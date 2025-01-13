@@ -24,6 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController password = TextEditingController();
   TextEditingController gender = TextEditingController();
   TextEditingController token = TextEditingController();
+  bool obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -36,21 +37,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Form(
             key: formstate,
             child: BlocConsumer<AuthCubit, AuthState>(
-              listener: (context, state) {
+              listener: (context, state) async {
                 if (state is Authsuccess) {
-                  if (state.user["status"] == "success") {
+                  var userData = await state.user;
+                  if (userData["status"] == "success") {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        backgroundColor: Colors.indigoAccent,
-                        content: Text(state.user["message"]),
+                        backgroundColor: Colors.purple,
+                        content: Text(
+                          userData["message"],
+                          style: Styles.textstyle18,
+                        ),
                       ),
                     );
                   }
-                  if (state.user["status"] == "error") {
+                  if (userData["status"] == "error") {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         backgroundColor: Colors.red,
-                        content: Text(state.user["message"]),
+                        content: Text(
+                          userData["message"],
+                          style: Styles.textstyle18,
+                        ),
                       ),
                     );
                   }
@@ -171,14 +179,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return MyValidators.passwordValidator(value);
                             },
                             suffixIcon: IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.visibility_off),
+                              onPressed: () {
+                                setState(() {
+                                  obscureText = !obscureText;
+                                });
+                              },
+                              icon: Icon(
+                                obscureText
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
                             ),
                             prefixIcon: IconButton(
                               onPressed: () {},
                               icon: Icon(Icons.lock, color: Colors.purple[800]),
                             ),
-                            obscureText: true,
+                            obscureText: obscureText,
                           ),
                           SizedBox(height: 15),
 
@@ -212,6 +228,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             onPressed: () {
                               if (formstate.currentState!.validate()) {
+                                print("===================================");
                                 authCubit.postdatacubit(
                                   name: username.text,
                                   email: email.text,
